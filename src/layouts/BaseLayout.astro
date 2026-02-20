@@ -4,6 +4,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import StickySocialCTA from '../components/ui/StickySocialCTA.astro';
 import { site } from '../content/site';
+import { withBase } from '../utils/basePath';
 
 type Props = {
   title: string;
@@ -11,8 +12,9 @@ type Props = {
   ogImage?: string;
 };
 
-const { title, description, ogImage = '/media/index-4.jpg' } = Astro.props;
+const { title, description, ogImage = withBase('/media/index-4.jpg') } = Astro.props;
 const canonical = Astro.url;
+const resolvedOgImage = ogImage.startsWith('http') ? ogImage : new URL(ogImage, canonical).toString();
 
 const commonOrg = {
   '@context': 'https://schema.org',
@@ -45,16 +47,16 @@ const schema = [
     {description ? <meta property="og:description" content={description} /> : null}
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonical.toString()} />
-    <meta property="og:image" content={ogImage} />
+    <meta property="og:image" content={resolvedOgImage} />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     {description ? <meta name="twitter:description" content={description} /> : null}
-    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image" content={resolvedOgImage} />
 
     <script type="application/ld+json" set:html={JSON.stringify(schema)} />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" href="/favicon.ico" />
+    <link rel="icon" type="image/svg+xml" href={withBase('/favicon.svg')} />
+    <link rel="icon" href={withBase('/favicon.ico')} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
     <link

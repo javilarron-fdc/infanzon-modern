@@ -1,9 +1,15 @@
 ---
 import { site, primaryNavGroups } from '../content/site';
 import { media } from '../content/media';
+import { baseRootPath, normalizePath, withBase } from '../utils/basePath';
 
-const pathname = Astro.url.pathname;
-const isActive = (href: string) => (href === '/' ? pathname === '/' : pathname.startsWith(href));
+const pathname = normalizePath(Astro.url.pathname);
+const baseRoot = baseRootPath();
+const isActive = (href: string) => {
+  const target = normalizePath(href);
+  if (target === baseRoot) return pathname === baseRoot;
+  return pathname === target || pathname.startsWith(`${target}/`);
+};
 const isGroupActive = (href: string, children: Array<{ href: string }>) =>
   isActive(href) || children.some((item) => isActive(item.href));
 const callHref = `tel:${site.phones[0].replace(/\s+/g, '')}`;
@@ -11,7 +17,7 @@ const callHref = `tel:${site.phones[0].replace(/\s+/g, '')}`;
 
 <header class="site-header" data-site-header>
   <div class="container nav-shell">
-    <a href="/" class="brand-mark" aria-label={`Ir a inicio de ${site.name}`}>
+    <a href={withBase('/')} class="brand-mark" aria-label={`Ir a inicio de ${site.name}`}>
       <img src={media.logo.src} alt={media.logo.alt} loading="eager" />
       <span>
         <strong>{site.name}</strong>

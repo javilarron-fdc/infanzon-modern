@@ -1,5 +1,6 @@
 ---
 import { site } from '../content/site';
+import { withBase } from '../utils/basePath';
 ---
 
 <footer class="site-footer">
@@ -14,9 +15,9 @@ import { site } from '../content/site';
       <p><strong>Email:</strong> <a href={`mailto:${site.email}`}>{site.email}</a></p>
     </div>
     <div>
-      <a href="/info/accesos">Accesos</a>
-      <a href="/info/accesibilidad">Accesibilidad</a>
-      <a href="/fantasma">Historia y leyenda</a>
+      <a href={withBase('/info/accesos')}>Accesos</a>
+      <a href={withBase('/info/accesibilidad')}>Accesibilidad</a>
+      <a href={withBase('/fantasma')}>Historia y leyenda</a>
     </div>
   </div>
   <div class="container footer-base">

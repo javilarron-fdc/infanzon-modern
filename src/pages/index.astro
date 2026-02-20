@@ -1,0 +1,20 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroCinematic from '../components/sections/HeroCinematic.astro';
+import StatStrip from '../components/sections/StatStrip.astro';
+import EditorialSection from '../components/sections/EditorialSection.astro';
+import ContactRail from '../components/ui/ContactRail.astro';
+import { site } from '../content/site';
+import { homeHero, homeSections } from '../content/home';
+---
+
+<BaseLayout
+  title={`${site.name} | Restaurante, hotel rural y eventos en Gijon`}
+  description="Restaurante, hotel rural, finca y celebraciones en un entorno unico de Cabuenes, Gijon."
+>
+  <HeroCinematic hero={homeHero} />
+  <StatStrip items={homeHero.stats} />
+  <EditorialSection section={homeSections[0]} />
+  <EditorialSection section={homeSections[1]} reverse={true} />
+  <ContactRail />
+</BaseLayout>

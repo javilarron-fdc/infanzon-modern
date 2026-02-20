@@ -1,0 +1,33 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import EventPackagesGrid from '../../components/sections/EventPackagesGrid.astro';
+import PolicyPanel from '../../components/sections/PolicyPanel.astro';
+import ContactRail from '../../components/ui/ContactRail.astro';
+import DownloadPanel from '../../components/ui/DownloadPanel.astro';
+import { site } from '../../content/site';
+import { empresaPackages, empresaPolicies } from '../../content/menusEmpresa';
+---
+
+<BaseLayout
+  title={`Menus de empresa | ${site.name}`}
+  description="Comidas de empresa, grupos y celebraciones corporativas en La Quinta del Ynfanzon."
+>
+  <section class="section">
+    <div class="container">
+      <h1>Menus de empresa y grupos</h1>
+      <p style="margin-top:.75rem">
+        Organizamos reuniones y celebraciones con salones privados, menus por niveles y formatos de pincheo o espicha.
+        Elige una base y la ajustamos al perfil de tu grupo.
+      </p>
+    </div>
+  </section>
+
+  <EventPackagesGrid title="Modelos de servicio" packages={empresaPackages} columns={2} collapsible={true} />
+  <PolicyPanel notes={empresaPolicies} />
+  <DownloadPanel
+    downloadKey="empresa"
+    title="Menus de empresa en PDF"
+    description="Descarga el dossier completo y solicita propuesta personalizada para tu fecha."
+  />
+  <ContactRail />
+</BaseLayout>

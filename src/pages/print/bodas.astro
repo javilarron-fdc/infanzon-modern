@@ -1,0 +1,46 @@
+---
+import PrintLayout from '../../layouts/PrintLayout.astro';
+import { site } from '../../content/site';
+import { bodasPackages, bodasPolicies } from '../../content/bodas';
+---
+
+<PrintLayout title={`Bodas PDF | ${site.name}`}>
+  <h1>Dossier de Bodas - {site.name}</h1>
+  <p class="meta">{site.addressLine} · Tel. {site.phones.join(' · ')} · Facebook: {site.facebookUrl}</p>
+
+  <section>
+    <h2>Opciones y menus</h2>
+    <div class="cards">
+      {bodasPackages.map((pack) => (
+        <article class="card">
+          <h3>{pack.title}</h3>
+          {pack.price ? <p><strong>{pack.price}</strong></p> : null}
+          {pack.subtitle ? <p class="small">{pack.subtitle}</p> : null}
+          <ul>
+            {pack.includes.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+          {pack.conditions?.length ? (
+            <ul>
+              {pack.conditions.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          ) : null}
+        </article>
+      ))}
+    </div>
+  </section>
+
+  {bodasPolicies.map((block) => (
+    <section class="note">
+      <h3>{block.title}</h3>
+      <ul>
+        {block.notes.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ul>
+    </section>
+  ))}
+</PrintLayout>

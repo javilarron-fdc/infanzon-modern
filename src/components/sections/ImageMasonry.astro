@@ -1,0 +1,24 @@
+---
+import type { GalleryImage } from '../../types/content';
+import { media } from '../../content/media';
+
+type Props = { title: string; images: GalleryImage[] };
+const { title, images } = Astro.props;
+---
+
+<section class="section">
+  <div class="container">
+    <h2>{title}</h2>
+    <div class="masonry">
+      {images.map((item) => {
+        const image = media[item.key as keyof typeof media];
+        return (
+          <figure class="masonry-item animate-rise">
+            <img src={image.src} alt={item.alt || image.alt} loading="lazy" />
+            {item.caption ? <figcaption>{item.caption}</figcaption> : null}
+          </figure>
+        );
+      })}
+    </div>
+  </div>
+</section>

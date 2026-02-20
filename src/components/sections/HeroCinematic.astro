@@ -1,0 +1,29 @@
+---
+import type { HeroBlock } from '../../types/content';
+import { media } from '../../content/media';
+import { site } from '../../content/site';
+
+type Props = { hero: HeroBlock };
+const { hero } = Astro.props;
+const image = media[hero.imageKey as keyof typeof media];
+const primaryHref = hero.ctaPrimary.href === 'facebook' ? site.facebookUrl : hero.ctaPrimary.href;
+const secondaryHref = hero.ctaSecondary?.href === 'tel' ? `tel:${site.phones[0].replace(/\s+/g, '')}` : hero.ctaSecondary?.href;
+---
+
+<section class="hero-cinematic">
+  <div class="hero-overlay"></div>
+  <div class="container hero-grid">
+    <div class="hero-copy animate-rise">
+      <p class="eyebrow">{hero.kicker}</p>
+      <h1>{hero.title}</h1>
+      <p class="lead">{hero.subtitle}</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href={primaryHref} target="_blank" rel="noopener noreferrer">{hero.ctaPrimary.label}</a>
+        {secondaryHref ? <a class="btn btn-secondary" href={secondaryHref}>{hero.ctaSecondary?.label}</a> : null}
+      </div>
+    </div>
+    <div class="hero-figure animate-rise">
+      <img src={image.src} alt={image.alt} loading="eager" />
+    </div>
+  </div>
+</section>

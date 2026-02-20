@@ -1,0 +1,20 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import EditorialSection from '../../components/sections/EditorialSection.astro';
+import PolicyPanel from '../../components/sections/PolicyPanel.astro';
+import ContactRail from '../../components/ui/ContactRail.astro';
+import { site } from '../../content/site';
+import { accesosSections, accesosNotes } from '../../content/accesos';
+---
+
+<BaseLayout title={`Accesos | ${site.name}`} description="Como llegar a La Quinta del Ynfanzon en Cabuenes, Gijon.">
+  <section class="section">
+    <div class="container">
+      <h1>Accesos</h1>
+      <p>{site.mapHint}</p>
+    </div>
+  </section>
+  <EditorialSection section={accesosSections[0]} />
+  <PolicyPanel notes={accesosNotes} />
+  <ContactRail />
+</BaseLayout>

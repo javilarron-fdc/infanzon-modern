@@ -1,0 +1,20 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import EditorialSection from '../../components/sections/EditorialSection.astro';
+import PolicyPanel from '../../components/sections/PolicyPanel.astro';
+import ContactRail from '../../components/ui/ContactRail.astro';
+import { site } from '../../content/site';
+import { accesibilidadSections, accesibilidadNotes } from '../../content/accesibilidad';
+---
+
+<BaseLayout title={`Accesibilidad | ${site.name}`} description="Informacion de accesibilidad y rampas de acceso en La Quinta.">
+  <section class="section">
+    <div class="container">
+      <h1>Accesibilidad</h1>
+      <p>Informacion de accesos adaptados publicada en el sitio original y mantenida en esta version.</p>
+    </div>
+  </section>
+  <EditorialSection section={accesibilidadSections[0]} />
+  <PolicyPanel notes={accesibilidadNotes} />
+  <ContactRail />
+</BaseLayout>

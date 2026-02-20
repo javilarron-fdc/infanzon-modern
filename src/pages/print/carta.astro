@@ -1,0 +1,43 @@
+---
+import PrintLayout from '../../layouts/PrintLayout.astro';
+import { site } from '../../content/site';
+import { cartaGroups, cartaPolicies, cartaPrices } from '../../content/carta';
+---
+
+<PrintLayout title={`Carta PDF | ${site.name}`}>
+  <h1>Carta - {site.name}</h1>
+  <p class="meta">{site.addressLine} · Tel. {site.phones.join(' · ')} · {site.email}</p>
+
+  <h2>Tarifas orientativas</h2>
+  <div class="cards">
+    {cartaPrices.map((item) => (
+      <article class="card">
+        <h3>{item.label}</h3>
+        <p><strong>{item.price}</strong></p>
+        {item.note ? <p class="small">{item.note}</p> : null}
+      </article>
+    ))}
+  </div>
+
+  {cartaGroups.map((group) => (
+    <section>
+      <h2>{group.title}</h2>
+      <ul>
+        {group.items.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ul>
+    </section>
+  ))}
+
+  {cartaPolicies.map((block) => (
+    <section class="note">
+      <h3>{block.title}</h3>
+      <ul>
+        {block.notes.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ul>
+    </section>
+  ))}
+</PrintLayout>

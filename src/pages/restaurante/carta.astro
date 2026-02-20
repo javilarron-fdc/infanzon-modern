@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import MenuAccordion from '../../components/sections/MenuAccordion.astro';
+import PolicyPanel from '../../components/sections/PolicyPanel.astro';
+import ContactRail from '../../components/ui/ContactRail.astro';
+import DownloadPanel from '../../components/ui/DownloadPanel.astro';
+import { site } from '../../content/site';
+import { cartaGroups, cartaPolicies, cartaPrices } from '../../content/carta';
+---
+
+<BaseLayout title={`Carta | ${site.name}`} description="Carta, bodega y platos de temporada en La Quinta del Ynfanzon.">
+  <section class="section">
+    <div class="container">
+      <h1>Carta del restaurante</h1>
+      <p style="margin-top:.75rem">
+        Cocina asturiana y de temporada con opciones para todos los gustos. Explora la carta por bloques y consulta
+        disponibilidad del dia para cada plato.
+      </p>
+    </div>
+  </section>
+
+  <MenuAccordion prices={cartaPrices} groups={cartaGroups} />
+  <PolicyPanel notes={cartaPolicies} />
+  <DownloadPanel
+    downloadKey="carta"
+    title="Carta completa en PDF"
+    description="Descarga el documento de carta y bodega para revisar con calma antes de tu visita."
+  />
+  <ContactRail />
+</BaseLayout>

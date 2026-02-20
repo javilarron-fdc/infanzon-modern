@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import EventPackagesGrid from '../../components/sections/EventPackagesGrid.astro';
+import PolicyPanel from '../../components/sections/PolicyPanel.astro';
+import ImageMasonry from '../../components/sections/ImageMasonry.astro';
+import ContactRail from '../../components/ui/ContactRail.astro';
+import { site } from '../../content/site';
+import { nocheviejaPackages, nocheviejaNotes } from '../../content/nochevieja';
+---
+
+<BaseLayout title={`Nochevieja | ${site.name}`} description="Nochevieja en formato legado: cena especial y fiesta de invierno.">
+  <section class="section">
+    <div class="container">
+      <h1>Nochevieja</h1>
+      <p>
+        El sitio original describia una noche de celebracion de invierno estilo boda. Esta pagina mantiene ese contexto
+        y lo actualiza en presentacion.
+      </p>
+    </div>
+  </section>
+
+  <EventPackagesGrid title="Formato de la noche" packages={nocheviejaPackages} />
+  <PolicyPanel notes={nocheviejaNotes} />
+  <ImageMasonry
+    title="Escena nocturna"
+    images={[
+      { key: 'casanoche', alt: 'La Quinta iluminada en Nochevieja', source: { file: 'nochevieja.html', section: 'foto' } },
+    ]}
+  />
+  <ContactRail />
+</BaseLayout>

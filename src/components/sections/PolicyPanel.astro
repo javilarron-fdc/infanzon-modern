@@ -1,0 +1,21 @@
+---
+import type { PolicyNote } from '../../types/content';
+
+type Props = { notes: PolicyNote[] };
+const { notes } = Astro.props;
+---
+
+<section class="section section-alt">
+  <div class="container card-grid two">
+    {notes.map((note) => (
+      <article class="content-card animate-rise">
+        <h3>{note.title}</h3>
+        <ul>
+          {note.notes.map((entry) => (
+            <li>{entry}</li>
+          ))}
+        </ul>
+      </article>
+    ))}
+  </div>
+</section>

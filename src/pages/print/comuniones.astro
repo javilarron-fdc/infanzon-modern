@@ -1,0 +1,46 @@
+---
+import PrintLayout from '../../layouts/PrintLayout.astro';
+import { site } from '../../content/site';
+import { comunionPackages, comunionPolicies } from '../../content/comuniones';
+---
+
+<PrintLayout title={`Comuniones PDF | ${site.name}`}>
+  <h1>Dossier de Comuniones - {site.name}</h1>
+  <p class="meta">{site.addressLine} · Tel. {site.phones.join(' · ')} · {site.email}</p>
+
+  <section>
+    <h2>Menus y opciones</h2>
+    <div class="cards">
+      {comunionPackages.map((pack) => (
+        <article class="card">
+          <h3>{pack.title}</h3>
+          {pack.price ? <p><strong>{pack.price}</strong></p> : null}
+          {pack.subtitle ? <p class="small">{pack.subtitle}</p> : null}
+          <ul>
+            {pack.includes.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+          {pack.conditions?.length ? (
+            <ul>
+              {pack.conditions.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          ) : null}
+        </article>
+      ))}
+    </div>
+  </section>
+
+  {comunionPolicies.map((block) => (
+    <section class="note">
+      <h3>{block.title}</h3>
+      <ul>
+        {block.notes.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ul>
+    </section>
+  ))}
+</PrintLayout>

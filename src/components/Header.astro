@@ -1,0 +1,278 @@
+---
+import { site, primaryNavGroups } from '../content/site';
+import { media } from '../content/media';
+
+const pathname = Astro.url.pathname;
+const isActive = (href: string) => (href === '/' ? pathname === '/' : pathname.startsWith(href));
+const isGroupActive = (href: string, children: Array<{ href: string }>) =>
+  isActive(href) || children.some((item) => isActive(item.href));
+const callHref = `tel:${site.phones[0].replace(/\s+/g, '')}`;
+---
+
+<header class="site-header" data-site-header>
+  <div class="container nav-shell">
+    <a href="/" class="brand-mark" aria-label={`Ir a inicio de ${site.name}`}>
+      <img src={media.logo.src} alt={media.logo.alt} loading="eager" />
+      <span>
+        <strong>{site.name}</strong>
+        <small>{site.tagline}</small>
+      </span>
+    </a>
+
+    <nav class="desktop-nav" aria-label="Navegacion principal">
+      <ul class="top-nav-list">
+        {primaryNavGroups.map((group, index) => {
+          const active = isGroupActive(group.href, group.children);
+          const dropdownId = `nav-group-${index}`;
+          if (group.children.length === 0) {
+            return (
+              <li class="top-nav-item">
+                <a href={group.href} class:list={['top-nav-link', active && 'active']}>
+                  {group.label}
+                </a>
+              </li>
+            );
+          }
+
+          return (
+            <li class="nav-group" data-nav-group>
+              <button
+                type="button"
+                class:list={['top-nav-link', 'nav-group-trigger', active && 'active']}
+                aria-expanded="false"
+                aria-haspopup="true"
+                aria-controls={dropdownId}
+                data-nav-group-button
+                data-group-id={String(index)}
+              >
+                {group.label}
+              </button>
+              <div class="nav-dropdown" role="menu" id={dropdownId} data-nav-dropdown>
+                <ul>
+                  {group.children.map((item) => (
+                    <li>
+                      <a href={item.href} class:list={['dropdown-link', isActive(item.href) && 'active']} role="menuitem">
+                        <span>{item.label}</span>
+                        {item.description ? <small>{item.description}</small> : null}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </li>
+          );
+        })}
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+      <a href={callHref} class="header-cta header-cta-call">Llamar</a>
+      <a href={site.facebookUrl} target="_blank" rel="noopener noreferrer" class="header-cta header-cta-social">Facebook</a>
+      <button
+        type="button"
+        class="nav-toggle"
+        data-mobile-nav-button
+        aria-controls="mobile-nav-panel"
+        aria-expanded="false"
+      >
+        Menu
+      </button>
+    </div>
+  </div>
+
+  <div class="mobile-nav-panel" id="mobile-nav-panel" data-mobile-nav-panel>
+    <div class="container mobile-nav-wrap">
+      <div class="mobile-panel-head">
+        <strong>Menu</strong>
+        <button type="button" class="mobile-close" data-mobile-close aria-label="Cerrar menu">Cerrar</button>
+      </div>
+
+      <div class="mobile-top-cta-row">
+        <a href={callHref} class="header-cta header-cta-call">Llamar</a>
+        <a href={site.facebookUrl} target="_blank" rel="noopener noreferrer" class="header-cta header-cta-social">Facebook</a>
+      </div>
+
+      <ul class="mobile-nav-list">
+        {primaryNavGroups.map((group) => {
+          if (group.children.length === 0) {
+            return (
+              <li>
+                <a href={group.href} class:list={['mobile-direct-link', isActive(group.href) && 'active']}>
+                  {group.label}
+                </a>
+              </li>
+            );
+          }
+
+          return (
+            <li>
+              <details class="mobile-group" data-mobile-group>
+                <summary>{group.label}</summary>
+                <ul>
+                  {group.children.map((item) => (
+                    <li>
+                      <a href={item.href} class:list={['mobile-child-link', isActive(item.href) && 'active']}>
+                        <span>{item.label}</span>
+                        {item.description ? <small>{item.description}</small> : null}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </details>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  </div>
+</header>
+
+<script is:inline>
+  const header = document.querySelector('[data-site-header]');
+  const groups = [...(header?.querySelectorAll('[data-nav-group]') ?? [])];
+  const closeTimers = new WeakMap();
+
+  const setGroupOpen = (group, open) => {
+    group.classList.toggle('open', open);
+    const button = group.querySelector('[data-nav-group-button]');
+    if (button) button.setAttribute('aria-expanded', String(open));
+  };
+
+  const clearCloseTimer = (group) => {
+    const timer = closeTimers.get(group);
+    if (typeof timer === 'number') {
+      window.clearTimeout(timer);
+      closeTimers.delete(group);
+    }
+  };
+
+  const scheduleClose = (group, delay = 120) => {
+    clearCloseTimer(group);
+    const timer = window.setTimeout(() => setGroupOpen(group, false), delay);
+    closeTimers.set(group, timer);
+  };
+
+  const closeDesktopMenus = (except) => {
+    groups.forEach((group) => {
+      if (group === except) return;
+      clearCloseTimer(group);
+      setGroupOpen(group, false);
+    });
+  };
+
+  groups.forEach((group) => {
+    const button = group.querySelector('[data-nav-group-button]');
+    const firstItem = group.querySelector('.dropdown-link');
+    const dropdown = group.querySelector('[data-nav-dropdown]');
+    if (!button) return;
+
+    button.addEventListener('click', (event) => {
+      event.preventDefault();
+      const isOpen = group.classList.contains('open');
+      closeDesktopMenus(group);
+      clearCloseTimer(group);
+      setGroupOpen(group, !isOpen);
+    });
+
+    button.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowDown') {
+        event.preventDefault();
+        closeDesktopMenus(group);
+        clearCloseTimer(group);
+        setGroupOpen(group, true);
+        firstItem?.focus();
+      }
+
+      if (event.key === 'Escape') {
+        closeDesktopMenus();
+        button.focus();
+      }
+    });
+
+    dropdown?.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        closeDesktopMenus();
+        button.focus();
+      }
+    });
+
+    group.addEventListener('pointerenter', () => {
+      closeDesktopMenus(group);
+      clearCloseTimer(group);
+      setGroupOpen(group, true);
+    });
+
+    group.addEventListener('pointerleave', () => {
+      scheduleClose(group);
+    });
+
+    group.addEventListener('focusout', () => {
+      setTimeout(() => {
+        if (!group.contains(document.activeElement)) {
+          setGroupOpen(group, false);
+        }
+      }, 0);
+    });
+
+    dropdown?.addEventListener('pointerenter', () => clearCloseTimer(group));
+    dropdown?.addEventListener('pointerleave', () => scheduleClose(group));
+  });
+
+  document.addEventListener('click', (event) => {
+    if (!header?.contains(event.target)) {
+      closeDesktopMenus();
+    }
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      closeDesktopMenus();
+    }
+  });
+
+  const mobileToggle = document.querySelector('[data-mobile-nav-button]');
+  const mobilePanel = document.querySelector('[data-mobile-nav-panel]');
+  const mobileClose = document.querySelector('[data-mobile-close]');
+  const mobileLinks = mobilePanel?.querySelectorAll('a') ?? [];
+  const mobileGroups = [...(mobilePanel?.querySelectorAll('[data-mobile-group]') ?? [])];
+
+  const setMobileMenuState = (open) => {
+    mobilePanel?.classList.toggle('open', open);
+    document.body.classList.toggle('mobile-nav-open', open);
+    mobileToggle?.setAttribute('aria-expanded', String(open));
+    if (!open) return;
+    const firstFocusable = mobilePanel?.querySelector('a, button, summary');
+    if (firstFocusable instanceof HTMLElement) firstFocusable.focus();
+  };
+
+  mobileToggle?.addEventListener('click', () => {
+    const isOpen = mobilePanel?.classList.contains('open');
+    setMobileMenuState(!isOpen);
+  });
+
+  mobileClose?.addEventListener('click', () => setMobileMenuState(false));
+  mobileLinks.forEach((link) => link.addEventListener('click', () => setMobileMenuState(false)));
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && mobilePanel?.classList.contains('open')) {
+      setMobileMenuState(false);
+      mobileToggle?.focus();
+    }
+  });
+
+  mobileGroups.forEach((details) => {
+    details.addEventListener('toggle', () => {
+      if (!details.open) return;
+      mobileGroups.forEach((other) => {
+        if (other !== details) other.open = false;
+      });
+    });
+  });
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 1160 && mobilePanel?.classList.contains('open')) {
+      setMobileMenuState(false);
+    }
+  });
+</script>

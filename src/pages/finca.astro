@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import EditorialSection from '../components/sections/EditorialSection.astro';
+import ImageMasonry from '../components/sections/ImageMasonry.astro';
+import ContactRail from '../components/ui/ContactRail.astro';
+import { site } from '../content/site';
+import { fincaSections } from '../content/finca';
+---
+
+<BaseLayout title={`La finca | ${site.name}`} description="Jardines, aparcamiento y archivo fotografico historico de La Quinta.">
+  <section class="section">
+    <div class="container">
+      <h1>La finca</h1>
+      <p>Espacio verde, zona de juegos y archivo visual de decadas de historia familiar.</p>
+    </div>
+  </section>
+
+  <EditorialSection section={fincaSections[0]} />
+  <ImageMasonry
+    title="Archivo historico"
+    images={[
+      { key: 'plazoleta1926', alt: 'Plazoleta 1926', caption: '1926 · Plazoleta', source: { file: 'finca.html', section: 'foto 1926' } },
+      { key: 'salon1926', alt: 'Salon 1926', caption: '1926 · Salon', source: { file: 'finca.html', section: 'foto 1926' } },
+      { key: 'frente1952', alt: 'Frente 1952', caption: '1952 · Frente', source: { file: 'finca.html', section: 'foto 1952' } },
+      { key: 'camino1952', alt: 'Camino 1952', caption: '1952 · Camino de cerezos', source: { file: 'finca.html', section: 'foto 1952' } },
+      { key: 'plazoleta1962', alt: 'Plazoleta 1962', caption: '1962 · Plazoleta', source: { file: 'finca.html', section: 'foto 1962' } },
+      { key: 'fachada1962', alt: 'Fachada 1962', caption: '1962 · Fachada', source: { file: 'finca.html', section: 'foto 1962' } },
+    ]}
+  />
+  <ContactRail />
+</BaseLayout>

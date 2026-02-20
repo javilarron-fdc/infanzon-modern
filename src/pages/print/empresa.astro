@@ -1,0 +1,39 @@
+---
+import PrintLayout from '../../layouts/PrintLayout.astro';
+import { site } from '../../content/site';
+import { empresaPackages, empresaPolicies } from '../../content/menusEmpresa';
+---
+
+<PrintLayout title={`Empresa PDF | ${site.name}`}>
+  <h1>Menus de Empresa - {site.name}</h1>
+  <p class="meta">{site.addressLine} · Tel. {site.phones.join(' · ')} · {site.email}</p>
+
+  <section>
+    <h2>Modelos de servicio</h2>
+    <div class="cards">
+      {empresaPackages.map((pack) => (
+        <article class="card">
+          <h3>{pack.title}</h3>
+          {pack.price ? <p><strong>{pack.price}</strong></p> : null}
+          {pack.subtitle ? <p class="small">{pack.subtitle}</p> : null}
+          <ul>
+            {pack.includes.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  {empresaPolicies.map((block) => (
+    <section class="note">
+      <h3>{block.title}</h3>
+      <ul>
+        {block.notes.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ul>
+    </section>
+  ))}
+</PrintLayout>

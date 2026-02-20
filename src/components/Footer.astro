@@ -1,0 +1,26 @@
+---
+import { site } from '../content/site';
+---
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <h2>{site.name}</h2>
+      <p>{site.addressLine}</p>
+    </div>
+    <div>
+      <p><strong>Facebook:</strong> <a href={site.facebookUrl} target="_blank" rel="noopener noreferrer">Perfil oficial</a></p>
+      <p><strong>Telefono:</strong> {site.phones.join(' · ')}</p>
+      <p><strong>Email:</strong> <a href={`mailto:${site.email}`}>{site.email}</a></p>
+    </div>
+    <div>
+      <a href="/info/accesos">Accesos</a>
+      <a href="/info/accesibilidad">Accesibilidad</a>
+      <a href="/fantasma">Historia y leyenda</a>
+    </div>
+  </div>
+  <div class="container footer-base">
+    <p>&copy; {new Date().getFullYear()} {site.name}</p>
+    <p>Restaurante, eventos y hotel rural en Cabuenes (Gijon).</p>
+  </div>
+</footer>

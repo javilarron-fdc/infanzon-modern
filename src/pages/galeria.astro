@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ImageMasonry from '../components/sections/ImageMasonry.astro';
+import ContactRail from '../components/ui/ContactRail.astro';
+import { site } from '../content/site';
+import { galeria } from '../content/galeria';
+---
+
+<BaseLayout title={`Galeria | ${site.name}`} description="Galeria visual de espacios historicos: finca, salones, terraza y hotel.">
+  <section class="section">
+    <div class="container">
+      <h1>Galeria</h1>
+      <p>Seleccion de imagenes heredadas del sitio original, normalizadas para navegacion moderna.</p>
+    </div>
+  </section>
+  <ImageMasonry title="Recorrido fotografico" images={galeria} />
+  <ContactRail />
+</BaseLayout>

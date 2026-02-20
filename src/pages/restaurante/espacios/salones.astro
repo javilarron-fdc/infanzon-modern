@@ -1,0 +1,44 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import EditorialSection from '../../../components/sections/EditorialSection.astro';
+import ContactRail from '../../../components/ui/ContactRail.astro';
+import { site } from '../../../content/site';
+---
+
+<BaseLayout title={`Salones | ${site.name}`} description="Salones historicos para carta diaria y eventos multitudinarios.">
+  <section class="section">
+    <div class="container">
+      <h1>Salones</h1>
+      <p>
+        El conjunto combina el salon comedor de carta y el salon grande para bodas, comuniones y congresos.
+      </p>
+    </div>
+  </section>
+
+  <EditorialSection
+    section={{
+      title: 'Salon comedor (carta diaria)',
+      body: [
+        'Espacio historico con chimenea y ambiente de casona.',
+        'Uso principal para carta y comidas de pequeno/mediano formato.',
+      ],
+      imageKeys: ['piano', 'piano2002', 'chimenea'],
+      sources: [{ file: 'salon.html', section: 'salon comedor' }],
+    }}
+  />
+
+  <EditorialSection
+    reverse={true}
+    section={{
+      title: 'Salon grande para celebraciones',
+      body: [
+        'Sala amplia con cristaleras preparada para actos de mayor capacidad.',
+        'Configuracion adaptable para banquete, cocktail y reuniones corporativas.',
+      ],
+      imageKeys: ['cristalera', 'salonNieve'],
+      sources: [{ file: 'salon.html', section: 'salon grande' }],
+    }}
+  />
+
+  <ContactRail />
+</BaseLayout>

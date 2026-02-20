@@ -1,0 +1,40 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import EventPackagesGrid from '../../components/sections/EventPackagesGrid.astro';
+import PolicyPanel from '../../components/sections/PolicyPanel.astro';
+import ImageMasonry from '../../components/sections/ImageMasonry.astro';
+import ContactRail from '../../components/ui/ContactRail.astro';
+import DownloadPanel from '../../components/ui/DownloadPanel.astro';
+import { site } from '../../content/site';
+import { comunionPackages, comunionPolicies } from '../../content/comuniones';
+---
+
+<BaseLayout title={`Comuniones | ${site.name}`} description="Menus de comunion, actividades infantiles y celebraciones familiares en Gijon.">
+  <section class="section">
+    <div class="container">
+      <h1>Comuniones</h1>
+      <p style="margin-top:.75rem">
+        Preparamos comuniones familiares con menus configurables, zonas de juego y organizacion por grupos para que
+        ninos y adultos disfruten todo el dia.
+      </p>
+    </div>
+  </section>
+
+  <EventPackagesGrid title="Menus y opciones" packages={comunionPackages} columns={2} collapsible={true} />
+  <PolicyPanel notes={comunionPolicies} />
+  <DownloadPanel
+    downloadKey="comuniones"
+    title="Dossier de comuniones en PDF"
+    description="Descarga todas las propuestas y te ayudamos a montar una celebracion a medida."
+  />
+
+  <ImageMasonry
+    title="Finca y ambiente infantil"
+    images={[
+      { key: 'comunion', alt: 'Celebracion de comunion en exteriores', source: { file: 'comunion.html', section: 'fotos' } },
+      { key: 'hinchable', alt: 'Castillo hinchable', source: { file: 'comunion.html', section: 'fotos' } },
+      { key: 'panoramica', alt: 'Vista panoramica de la finca', source: { file: 'comunion.html', section: 'fotos' } },
+    ]}
+  />
+  <ContactRail />
+</BaseLayout>

@@ -1,0 +1,33 @@
+---
+import type { MenuCourseGroup, PriceItem } from '../../types/content';
+
+type Props = { prices: PriceItem[]; groups: MenuCourseGroup[] };
+const { prices, groups } = Astro.props;
+---
+
+<section class="section">
+  <div class="container">
+    <div class="price-grid">
+      {prices.map((item) => (
+        <article class="price-card animate-rise">
+          <p class="price-label">{item.label}</p>
+          <p class="price-value">{item.price}</p>
+          {item.note ? <p class="price-note">{item.note}</p> : null}
+        </article>
+      ))}
+    </div>
+
+    <div class="accordion-wrap">
+      {groups.map((group) => (
+        <details class="menu-accordion animate-rise">
+          <summary><span>{group.title}</span></summary>
+          <ul>
+            {group.items.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>

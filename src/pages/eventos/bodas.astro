@@ -1,0 +1,39 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import EventPackagesGrid from '../../components/sections/EventPackagesGrid.astro';
+import PolicyPanel from '../../components/sections/PolicyPanel.astro';
+import ImageMasonry from '../../components/sections/ImageMasonry.astro';
+import ContactRail from '../../components/ui/ContactRail.astro';
+import DownloadPanel from '../../components/ui/DownloadPanel.astro';
+import { site } from '../../content/site';
+import { bodasPackages, bodasPolicies } from '../../content/bodas';
+---
+
+<BaseLayout title={`Bodas | ${site.name}`} description="Menus de boda, pincheos y celebracion integral en La Quinta del Ynfanzon.">
+  <section class="section">
+    <div class="container">
+      <h1>Bodas</h1>
+      <p style="margin-top:.75rem">
+        Disenamos bodas a medida con cocina propia, espacios exclusivos y varias combinaciones de banquete, pincheo y
+        fiesta. En esta pagina tienes un resumen claro para comparar opciones.
+      </p>
+    </div>
+  </section>
+
+  <EventPackagesGrid title="Opciones para tu celebracion" packages={bodasPackages} columns={2} collapsible={true} />
+  <PolicyPanel notes={bodasPolicies} />
+  <DownloadPanel
+    downloadKey="bodas"
+    title="Dossier de bodas en PDF"
+    description="Descarga todas las opciones y habla con nosotros para personalizar menu, horarios y montaje."
+  />
+
+  <ImageMasonry
+    title="Ambientes de boda"
+    images={[
+      { key: 'salon4', alt: 'Salon de boda montado', source: { file: 'boda_utf8.html', section: 'fotos' } },
+      { key: 'portal', alt: 'Entrada principal para novios e invitados', source: { file: 'boda_utf8.html', section: 'fotos' } },
+    ]}
+  />
+  <ContactRail />
+</BaseLayout>

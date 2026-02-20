@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import EditorialSection from '../components/sections/EditorialSection.astro';
+import MenuAccordion from '../components/sections/MenuAccordion.astro';
+import PolicyPanel from '../components/sections/PolicyPanel.astro';
+import ContactRail from '../components/ui/ContactRail.astro';
+import { site } from '../content/site';
+import { hotelSections, hotelPrices, hotelPolicies } from '../content/hotel';
+---
+
+<BaseLayout title={`Hotel rural | ${site.name}`} description="Casa de aldea de La Quinta en Cabuenes, a pocos minutos de Gijon y la costa.">
+  <section class="section">
+    <div class="container">
+      <h1>Hotel rural</h1>
+      <p style="margin-top:.75rem">
+        Habitaciones amplias, entorno tranquilo y una ubicacion excelente para descansar, celebrar o moverte por Gijon y
+        sus playas.
+      </p>
+    </div>
+  </section>
+
+  <EditorialSection section={hotelSections[0]} />
+  <EditorialSection section={hotelSections[1]} reverse={true} />
+  <MenuAccordion
+    prices={hotelPrices}
+    groups={[
+      {
+        title: 'Servicios destacados',
+        items: ['Desayuno incluido en tarifa base', 'Wifi en zonas del hotel', 'Salones de apoyo en planta baja'],
+        sources: [{ file: 'hotel_utf8.html', section: 'servicios' }],
+      },
+    ]}
+  />
+  <PolicyPanel notes={hotelPolicies} />
+  <ContactRail />
+</BaseLayout>

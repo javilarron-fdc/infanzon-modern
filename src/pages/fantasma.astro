@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import EditorialSection from '../components/sections/EditorialSection.astro';
+import ContactRail from '../components/ui/ContactRail.astro';
+import { site } from '../content/site';
+import { fantasmaSections } from '../content/fantasma';
+---
+
+<BaseLayout title={`Leyenda de la casa | ${site.name}`} description="Relato historico de Dona Ana de Solis en La Quinta del Ynfanzon.">
+  <section class="section">
+    <div class="container">
+      <h1>La leyenda de Dona Ana</h1>
+      <p>Memoria oral conservada en el sitio original y vinculada al patrimonio narrativo de la casona.</p>
+    </div>
+  </section>
+  <EditorialSection section={fantasmaSections[0]} />
+  <ContactRail />
+</BaseLayout>

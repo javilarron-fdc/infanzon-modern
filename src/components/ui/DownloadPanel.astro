@@ -1,0 +1,35 @@
+---
+import { site } from '../../content/site';
+import { downloads } from '../../content/downloads';
+
+type DownloadKey = keyof typeof downloads;
+
+type Props = {
+  title?: string;
+  description?: string;
+  downloadKey: DownloadKey;
+  reserveHref?: string;
+  reserveLabel?: string;
+};
+
+const {
+  title = 'Reserva y descarga',
+  description = 'Consulta el documento completo en PDF o reserva directamente por telefono.',
+  downloadKey,
+  reserveHref = `tel:${site.phones[0].replace(/\s+/g, '')}`,
+  reserveLabel = 'Reservar por telefono',
+} = Astro.props;
+
+const asset = downloads[downloadKey];
+---
+
+<section class="section section-alt">
+  <div class="container content-card animate-rise">
+    <h2>{title}</h2>
+    <p class="muted" style="margin-top:.5rem">{description}</p>
+    <div class="cta-row" style="margin-top:1rem">
+      <a class="btn btn-primary" href={reserveHref}>{reserveLabel}</a>
+      <a class="btn btn-secondary" href={asset.href} download>{asset.label}</a>
+    </div>
+  </div>
+</section>

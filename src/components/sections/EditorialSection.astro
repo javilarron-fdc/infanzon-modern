@@ -1,0 +1,28 @@
+---
+import type { SectionBlock } from '../../types/content';
+import { media } from '../../content/media';
+
+type Props = {
+  section: SectionBlock;
+  reverse?: boolean;
+};
+
+const { section, reverse = false } = Astro.props;
+const images = (section.imageKeys ?? []).map((key) => media[key as keyof typeof media]);
+---
+
+<section class="section editorial">
+  <div class:list={["container editorial-grid", reverse && 'reverse']}>
+    <div class="editorial-copy animate-rise">
+      <h2>{section.title}</h2>
+      {section.body.map((paragraph) => <p>{paragraph}</p>)}
+    </div>
+    {images.length > 0 ? (
+      <div class="editorial-media animate-rise">
+        {images.slice(0, 2).map((image) => (
+          <img src={image.src} alt={image.alt} loading="lazy" />
+        ))}
+      </div>
+    ) : null}
+  </div>
+</section>

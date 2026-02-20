@@ -1,0 +1,15 @@
+---
+import { site } from '../../content/site';
+---
+
+<section class="section section-alt">
+  <div class="container contact-rail animate-rise">
+    <h2>Contacto rapido</h2>
+    <div class="contact-items">
+      <a href={site.facebookUrl} target="_blank" rel="noopener noreferrer">Facebook</a>
+      <a href={`tel:${site.phones[0].replace(/\s+/g, '')}`}>{site.phones.join(' · ')}</a>
+      <a href={`mailto:${site.email}`}>{site.email}</a>
+      <span>{site.addressLine}</span>
+    </div>
+  </div>
+</section>

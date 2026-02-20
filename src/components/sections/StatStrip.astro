@@ -1,0 +1,16 @@
+---
+type Item = { label: string; value: string };
+type Props = { items: Item[] };
+const { items } = Astro.props;
+---
+
+<section class="stat-strip">
+  <div class="container stat-grid">
+    {items.map((item) => (
+      <article class="stat-card animate-rise">
+        <p class="stat-label">{item.label}</p>
+        <p class="stat-value">{item.value}</p>
+      </article>
+    ))}
+  </div>
+</section>

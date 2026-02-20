@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ContactRail from '../../components/ui/ContactRail.astro';
+import { site } from '../../content/site';
+---
+
+<BaseLayout title={`Contacto | ${site.name}`} description="Canales de contacto priorizados: Facebook, telefono, email y ubicacion.">
+  <section class="section">
+    <div class="container">
+      <h1>Contacto</h1>
+      <p>Canales priorizados segun estrategia actual: Facebook primero, despues telefono y correo.</p>
+      <div class="card-grid two" style="margin-top:1rem">
+        <article class="content-card animate-rise">
+          <h2>1) Facebook (canal principal)</h2>
+          <p>
+            <a href={site.facebookUrl} target="_blank" rel="noopener noreferrer">{site.facebookUrl}</a>
+          </p>
+          <p>Publicaciones, disponibilidad y novedades de menu/eventos.</p>
+        </article>
+        <article class="content-card animate-rise">
+          <h2>2) Telefono</h2>
+          <p>{site.phones.join(' · ')}</p>
+          <p>Hotel rural: {site.ruralHousePhone}</p>
+        </article>
+      </div>
+    </div>
+  </section>
+  <ContactRail />
+</BaseLayout>

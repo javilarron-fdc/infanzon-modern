@@ -1,0 +1,55 @@
+---
+import type { EventPackage } from '../../types/content';
+
+type Props = { title: string; packages: EventPackage[]; columns?: 2 | 3; collapsible?: boolean };
+const { title, packages, columns = 3, collapsible = false } = Astro.props;
+---
+
+<section class="section">
+  <div class="container">
+    <h2>{title}</h2>
+    <div class:list={['card-grid', columns === 2 ? 'two' : 'three']}>
+      {packages.map((pack) => (
+        <article class="content-card animate-rise">
+          {collapsible ? (
+            <details class="menu-accordion">
+              <summary><span>{pack.title}</span></summary>
+              {pack.price ? <p class="price-inline">{pack.price}</p> : null}
+              {pack.subtitle ? <p class="muted">{pack.subtitle}</p> : null}
+              <ul>
+                {pack.includes.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+              {pack.conditions?.length ? (
+                <div class="policy-chip">
+                  {pack.conditions.map((condition) => (
+                    <p>{condition}</p>
+                  ))}
+                </div>
+              ) : null}
+            </details>
+          ) : (
+            <>
+              <h3>{pack.title}</h3>
+              {pack.price ? <p class="price-inline">{pack.price}</p> : null}
+              {pack.subtitle ? <p class="muted">{pack.subtitle}</p> : null}
+              <ul>
+                {pack.includes.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+              {pack.conditions?.length ? (
+                <div class="policy-chip">
+                  {pack.conditions.map((condition) => (
+                    <p>{condition}</p>
+                  ))}
+                </div>
+              ) : null}
+            </>
+          )}
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

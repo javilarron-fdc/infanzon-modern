@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import EditorialSection from '../../../components/sections/EditorialSection.astro';
+import ContactRail from '../../../components/ui/ContactRail.astro';
+import { site } from '../../../content/site';
+---
+
+<BaseLayout title={`Terrazas | ${site.name}`} description="Cafeteria y terrazas con funcionamiento historico durante todo el ano.">
+  <section class="section">
+    <div class="container">
+      <h1>Cafeteria y terrazas</h1>
+      <p>
+        Frente al salon grande se mantiene la terraza permanente. En la web original se describe servicio anual de tapas
+        y copas, salvo franjas afectadas por bodas y grandes eventos.
+      </p>
+    </div>
+  </section>
+
+  <EditorialSection
+    section={{
+      title: 'Funcionamiento y ambiente',
+      body: [
+        'Zona exterior para tapeo y copas vinculada al ritmo de celebraciones.',
+        'Se recomienda consultar en Facebook horarios del dia y posibles reservas de espacio por eventos.',
+      ],
+      imageKeys: ['terrazaCopa', 'terrazaElena', 'terrazaFuera'],
+      sources: [{ file: 'terraza_utf8.html', section: 'descripcion principal' }],
+    }}
+  />
+
+  <ContactRail />
+</BaseLayout>

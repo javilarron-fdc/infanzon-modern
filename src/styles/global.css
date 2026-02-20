@@ -495,18 +495,12 @@ img {
   position: fixed;
   inset: 0;
   z-index: 55;
-  background: linear-gradient(160deg, #f7f0df, #ece0c7);
+  background: #f2e6ce;
   border-left: 1px solid rgba(31, 48, 37, 0.16);
   opacity: 0;
   pointer-events: none;
   transform: translateX(100%);
   transition: transform 240ms ease, opacity 240ms ease;
-}
-
-@supports (backdrop-filter: blur(1px)) {
-  .mobile-nav-panel {
-    backdrop-filter: blur(4px) saturate(115%);
-  }
 }
 
 .mobile-nav-panel.open {
@@ -580,7 +574,7 @@ img {
   border-radius: 0.7rem;
   padding: 0.8rem 0.9rem;
   font-weight: 700;
-  background: rgba(255, 255, 255, 0.74);
+  background: #fffef9;
   border: 1px solid rgba(31, 48, 37, 0.11);
 }
 
@@ -594,7 +588,7 @@ img {
 }
 
 .mobile-group {
-  background: rgba(255, 255, 255, 0.7);
+  background: #fffdf7;
   border: 1px solid rgba(31, 48, 37, 0.11);
   border-radius: 0.7rem;
   padding: 0.18rem;

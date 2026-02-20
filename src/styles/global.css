@@ -493,12 +493,18 @@ img {
 
 .mobile-nav-panel {
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100dvh;
   z-index: 55;
   background: #f2e6ce;
   border-left: 1px solid rgba(31, 48, 37, 0.16);
   visibility: hidden;
   pointer-events: none;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
   transform: translateX(100%);
   transition: transform 240ms ease, visibility 0s linear 240ms;
   will-change: transform;
@@ -1207,6 +1213,8 @@ body.motion-ready .animate-rise.in-view {
 
   .site-header {
     background: #f7efdc;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
   }
 }
 

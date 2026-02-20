@@ -24,10 +24,10 @@ const asset = downloads[downloadKey];
 ---
 
 <section class="section section-alt">
-  <div class="container content-card animate-rise">
+  <div class="container content-card download-panel animate-rise">
     <h2>{title}</h2>
-    <p class="muted" style="margin-top:.5rem">{description}</p>
-    <div class="cta-row" style="margin-top:1rem">
+    <p class="muted download-panel-copy">{description}</p>
+    <div class="cta-row download-panel-actions">
       <a class="btn btn-primary" href={reserveHref}>{reserveLabel}</a>
       <a class="btn btn-secondary" href={asset.href} download>{asset.label}</a>
     </div>

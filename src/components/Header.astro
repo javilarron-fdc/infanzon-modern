@@ -80,8 +80,14 @@ const callHref = `tel:${site.phones[0].replace(/\s+/g, '')}`;
         data-mobile-nav-button
         aria-controls="mobile-nav-panel"
         aria-expanded="false"
+        aria-label="Abrir menu principal"
       >
-        Menu
+        <span class="nav-toggle-icon" aria-hidden="true">
+          <span class="nav-toggle-line"></span>
+          <span class="nav-toggle-line"></span>
+          <span class="nav-toggle-line"></span>
+        </span>
+        <span class="sr-only">Abrir menu</span>
       </button>
     </div>
   </div>
@@ -89,7 +95,7 @@ const callHref = `tel:${site.phones[0].replace(/\s+/g, '')}`;
   <div class="mobile-nav-panel" id="mobile-nav-panel" data-mobile-nav-panel>
     <div class="container mobile-nav-wrap">
       <div class="mobile-panel-head">
-        <strong>Menu</strong>
+        <strong>Navegacion</strong>
         <button type="button" class="mobile-close" data-mobile-close aria-label="Cerrar menu">Cerrar</button>
       </div>
 
